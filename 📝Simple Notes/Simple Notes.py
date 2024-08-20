@@ -6,38 +6,38 @@ window.geometry('380x520')
 window.minsize(380, 520)
 window.title('Notes')
 
-Notes = 0
-
 set_default_color_theme('blue')
 
 def theme_change():
+    current_theme = get_appearance_mode()
 
-    if get_appearance_mode() == 'Dark':
-        set_appearance_mode('light')
-
+    if current_theme == "Dark":
+        set_appearance_mode("light")
     else:
-        set_appearance_mode('dark')
+        set_appearance_mode("dark")
 
 def create_note():
-    global Notes
+    tab_names = tabview._tab_dict.keys()
 
-    if Notes < 10:
-        Notes += 1
-        tabview.add(str(Notes))
-        CTkTextbox(master = tabview.tab(str(Notes)), font = ('Dubai', 12), width = 320, height = 420).pack()
+    numeric_tab_names = [int(name) for name in tab_names if name.isdigit()]
 
-    return Notes
+    if len(numeric_tab_names) >= 10:
+        return
+
+    if numeric_tab_names:
+        next_note = max(numeric_tab_names) + 1
+    else:
+        next_note = 1
+
+    tabview.add(str(next_note))
+    CTkTextbox(master=tabview.tab(str(next_note)), font=('Dubai', 12), width=320, height=420).pack()
+
 
 def close_note():
-    global Notes
-    Notes -= 1
-
     if tabview.get() == '🏠':
         pass
     else:
         tabview.delete(tabview.get())
-
-    return Notes
 
 tabview = CTkTabview(master = window)
 tabview.add('🏠')
