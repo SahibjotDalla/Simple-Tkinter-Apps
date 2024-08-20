@@ -30,7 +30,7 @@ def create_note():
         next_note = 1
 
     tabview.add(str(next_note))
-    CTkTextbox(master=tabview.tab(str(next_note)), font=('Dubai', 12), width=320, height=420).pack()
+    CTkTextbox(master = tabview.tab(str(next_note)), font = ('Dubai', 12), width = 320, height = 420, wrap = WORD).pack()
 
 def close_note():
     if tabview.get() == '🏠':
